@@ -18,3 +18,8 @@ export default keyManager(
 ```
 
 
+### IDE
+
+Well integrated with webstorm.
+
+![Image description](https://raw.githubusercontent.com/zvs001/constant-manager/master/doc/webstorm.jpg)
