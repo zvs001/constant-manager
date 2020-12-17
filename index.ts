@@ -8,18 +8,17 @@ export interface KeyManagerOptions {
 
 type KeyManagerResponse<T> = { readonly [P in keyof T]: string }
 
-// export default function<T>(actions: T & KeyManagerActions, options: KeyManagerOptions)
+function keyManager<T>(actions: T & KeyManagerActions, options?: KeyManagerOptions): KeyManagerResponse<T> {
+  const { prefix = '' } = options || {}
 
-function keyManager<T = {}>(actions: T & KeyManagerActions, options: KeyManagerOptions = {}): KeyManagerResponse<T> {
-  const { prefix = '' } = options
-
-  const newActions = {}
+  const newActions = {} as KeyManagerResponse<T>
 
   Object.keys(actions).forEach(key => {
-    newActions[key] = prefix + (actions[key] ? actions[key] : key)
+    const keyValue = actions[key] ? actions[key] : key
+    newActions[key] = prefix + keyValue
   })
 
-  return newActions as KeyManagerResponse<T>
+  return newActions
 }
 
 export default keyManager

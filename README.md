@@ -1,5 +1,8 @@
 
-This is key store for your app with build in typescript definitions.
+This is key store for your app. 
+Includes typescript definitions.
+
+[![npm](https://img.shields.io/npm/v/constant-manager)](https://www.npmjs.com/package/constant-manager)
 
 ### Usage
 ```typescript
