@@ -2,16 +2,19 @@ export interface KeyManagerActions {
   [key: string]: string | null
 }
 
-export interface KeyManagerOptions {
-  prefix?: string
+export interface KeyManagerOptions<PrefixT> {
+  prefix?: `${string & PrefixT}`
 }
 
-type KeyManagerResponse<T> = { readonly [P in keyof T]: string }
+type KeyManagerResponse<TObj, TPrefix extends string = ''> = {
+  readonly [Key in keyof TObj as `${string & Key}`]: `${TPrefix}${string & Key}`
+}
 
-function keyManager<T>(actions: T & KeyManagerActions, options?: KeyManagerOptions): KeyManagerResponse<T> {
+function keyManager<T, Prefix extends string = ''>(actions: T & KeyManagerActions, options?: KeyManagerOptions<Prefix>): KeyManagerResponse<T, Prefix> {
   const { prefix = '' } = options || {}
 
-  const newActions = {} as KeyManagerResponse<T>
+
+  const newActions = {} as KeyManagerResponse<T, Prefix>
 
   Object.keys(actions).forEach(key => {
     const keyValue = actions[key] ? actions[key] : key
